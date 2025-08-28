@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referentia</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+    body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #2c3e50;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    box-sizing: border-box;
+    caret-color: transparent;
+    background-color: #f7f3e9; 
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px; 
+}
+    #side-menu {
+        width: 250px;
+        background-color: #2c3e50;
+        color: white;
+        padding: 20px;
+        position: fixed;
+        height: 100%;
+        left: -300px;
+        top: 0;
+        transition: left 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 102;
+        font-size: 0.95rem;
+    }
+    #side-menu.active {
+        left: 0;
+    }
+    #side-menu .menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    #side-menu .close-btn {
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        color: #ecf0f1;
+        z-index: 10;
+    }
+    #side-menu .close-btn:hover {
+        transform: scale(1.1) rotate(90deg);
+    }
+    #side-menu .menu-title {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 1.5rem;
+        color: #3498db;
+        margin: 0;
+        z-index: 1;
+        position: relative;
+        text-shadow: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+
+    #menu-toggle-btn {
+        position: fixed;
+        left: 20px;
+        top: 20px;
+        z-index: 101;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: #2c3e50;
+        transition: transform 0.3s ease;
+    }
+    #menu-toggle-btn.active {
+        transform: rotate(90deg);
+    }
+
+    #main-content-container {
+        margin-left: 0;
+        transition: margin-left 0.3s ease;
+        padding: 20px;
+        width: 100%;
+    }
+
+    #side-menu button {
+        width: 100%;
+        background-color: #34495e;
+        color: white;
+        justify-content: flex-start;
+        border-radius: 5px;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    #side-menu button:hover {
+        background-color: #4b6680;
+        transform: translateX(5px);
+    }
+    h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: #1f3650; /* Cor do texto principal */
+    font-weight: 700;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    transition: transform 0.3s ease;
+
+}
+
+h1:hover {
+    transform: scale(1.05);
+}
+
+    h2{
+        font-size: 1.8rem;
+        color: #1f3650;
+        margin-bottom: 20px;
+    }
+
+    #output,
+    #forms {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        margin-top: 30px;
+        max-width: 900px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .toggle-details-btn {
+        text-align: left;
+        width: auto;
+        display: inline-block;
+        background: none;
+        border: 1px solid #3498db;
+        color: #3498db;
+        padding: 8px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+    .toggle-details-btn:hover {
+        background-color: #3498db;
+        color: white;
+        transform: scale(1.05);
+    }
+    .article-item {
+        border: 1px solid #dcdfe4;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .article-item:last-child {
+        border-bottom: none;
+    }
+    .article-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+    .article-item a {
+        color: #1f3650;
+        text-decoration: none;
+        font-weight: 700;
+    }
+    .article-item a:hover {
+        text-decoration: underline;
+    }
+    .details {
+        font-size: 0.9rem;
+        color: #666;
+        margin-top: 10px;
+        padding-left: 20px;
+        border-left: 2px solid #3498db;
+    }
+    .details p {
+        margin: 5px 0;
+    }
+
+    hr{
+        display:none;
+    }
+
+    input {
+        background-color: #f4f7f9;
+        border: 1px solid #c9d2d9;
+        color: #333;
+        padding: 12px;
+        border-radius: 25px;
+        width: calc(100% - 24px);
+        margin-top: 15px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+    }
+    input:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+    .divider {
+        height: 1px;
+        background-color: #4b6680;
+        margin: 15px 0;
+    }
+</style>
+</head>
+<body>
+    <i id="menu-toggle-btn" class="fas fa-bars"></i>
+    <nav id="side-menu">
+        <div class="menu-header">
+            <h3 class="menu-title">Referentia</h3>
+            <i class="fas fa-times close-btn"></i>
+        </div>
+        <button data-action="init"><i class="fas fa-home"></i> Iniciar Busca</button>
+        <div class="divider"></div>
+        <button data-action="search"><i class="fas fa-magnifying-glass"></i> Buscar</button>
+        <button data-action="list"><i class="fas fa-list"></i> Listar Resultados</button>
+        <div class="divider"></div>
+        <button data-action="countByAuthor"><i class="fas fa-chart-bar"></i> Contar por Autor</button>
+        <button data-action="sortByYear"><i class="fas fa-calendar-alt"></i> Ordenar por Ano</button>
+        <button data-action="sortByTitle"><i class="fas fa-sort-alpha-down-alt"></i> Ordenar por Título</button>
+        <button data-action="sortByAuthor"><i class="fas fa-user-alt"></i> Ordenar por Autor</button>
+        <div class="divider"></div>
+        <button data-action="exit"><i class="fas fa-sign-out-alt"></i> Sair</button>
+    </nav>
+
+    <div id="main-content-container">
+        <h1><i class="fas fa-magnifying-glass"></i> Buscar Artigos Científicos</h1>
+        <div id="forms"></div>
+        <div id="output"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="ui.js"></script>
+</body>
+</html>
